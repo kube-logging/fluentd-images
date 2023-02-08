@@ -1,0 +1,98 @@
+name: Artifacts
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  container-images:
+    name: Container images
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.allow_failure }}
+    strategy:
+      # Some older image builds may fail
+      fail-fast: false
+      matrix:
+        fluentd:
+          # Old, failing builds
+          # - v1.7
+          # - v1.9
+          # - v1.10
+          - v1.11
+          - v1.12
+          - v1.13
+          - v1.14
+        allow_failure: [false]
+        include:
+          - fluentd: v1.7
+            allow_failure: true
+          - fluentd: v1.9
+            allow_failure: true
+          - fluentd: v1.10
+            allow_failure: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Detect image versions used
+        id: versions
+        run: |
+          echo fluentd=$(grep "ENV FLUENTD_VERSION" ${{ matrix.fluentd }}/Dockerfile | cut -c 21-) >> $GITHUB_OUTPUT
+
+      - name: Gather metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ghcr.io/${{ github.repository_owner }}/fluentd
+          flavor: |
+            latest = false
+          tags: |
+            type=raw,value=v${{ steps.versions.outputs.fluentd }}-build.${{ github.run_number }}
+            type=raw,value=v${{ steps.versions.outputs.fluentd }}
+            type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
+            type=raw,value=${{ matrix.fluentd }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: all
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ github.token }}
+        if: github.event_name == 'push'
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ matrix.fluentd }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.9.0
+        with:
+          image-ref: "ghcr.io/${{ github.repository_owner }}/emissary:${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}"
+          format: "sarif"
+          output: "trivy-results.sarif"
+        if: github.event_name == 'push'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "trivy-results.sarif"
+        if: github.event_name == 'push'
