@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+permissions:
+  packages: write
+  security-events: write
+
 jobs:
   container-images:
     name: Container images
