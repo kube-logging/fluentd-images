@@ -14,28 +14,15 @@ jobs:
   container-images:
     name: Container images
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.allow_failure }}
     strategy:
       # Some older image builds may fail
       fail-fast: false
       matrix:
         fluentd:
-          # Old, failing builds
-          # - v1.7
-          # - v1.9
-          # - v1.10
           - v1.11
           - v1.12
           - v1.13
           - v1.14
-        allow_failure: [false]
-        include:
-          - fluentd: v1.7
-            allow_failure: true
-          - fluentd: v1.9
-            allow_failure: true
-          - fluentd: v1.10
-            allow_failure: true
 
     steps:
       - name: Checkout
