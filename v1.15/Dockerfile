@@ -12,11 +12,13 @@ RUN apk update \
         ca-certificates \
         ruby ruby-irb ruby-etc \
         tini libmaxminddb geoip \
+        snappy \
  && buildDeps=" \
       make gcc g++ libc-dev \
       wget bzip2 zlib-dev git linux-headers \
       automake autoconf libtool build-base \
       ruby-dev libc6-compat geoip-dev \
+      snappy-dev \
     " \
  && apk add --no-cache --virtual .build-deps \
         build-base \
@@ -39,6 +41,7 @@ RUN apk update \
  # See https://github.com/uken/fluent-plugin-elasticsearch/issues/912
  && gem install elasticsearch -v 7.13.3 \
  && gem install elasticsearch-xpack -v 7.13.3 \
+ && gem install snappy -v 0.2.0 \
  && gem install fluent-plugin-detect-exceptions -v 0.0.14 \
  # FMI https://github.com/banzaicloud/logging-operator/issues/887 \
  && find /usr/lib/ruby/gems/2.*/gems/fluent-plugin-detect-exceptions-* -type f -print0 | xargs -0 chmod 644 \
