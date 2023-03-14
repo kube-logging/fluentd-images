@@ -51,6 +51,17 @@ updates:
           - "version-update:semver-major"
           - "version-update:semver-minor"
 
+  - package-ecosystem: "docker"
+    directory: "/v1.15-minimal"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
