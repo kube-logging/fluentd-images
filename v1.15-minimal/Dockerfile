@@ -50,10 +50,12 @@ RUN apk update \
          fluent-plugin-rewrite-tag-filter \
          fluent-plugin-dedot_filter \
          fluent-plugin-sumologic_output \
+         fluent-plugin-kafka \
          fluent-plugin-geoip \
          fluent-plugin-tag-normaliser \
          fluent-plugin-grafana-loki \
          fluent-plugin-concat \
+         fluent-plugin-kinesis \
          fluent-plugin-parser-logfmt \
          fluent-plugin-multi-format-parser \
          fluent-plugin-record-modifier \
@@ -61,8 +63,6 @@ RUN apk update \
          fluent-plugin-elasticsearch \
          fluent-plugin-opensearch \
          fluent-plugin-aws-elasticsearch-service \
-         fluent-plugin-kafka \
-         fluent-plugin-kinesis \
          fluent-plugin-kube-events-timestamp \
          fluent-plugin-grok-parser \
  && gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git \
