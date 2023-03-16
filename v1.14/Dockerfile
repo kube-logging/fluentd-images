@@ -81,10 +81,10 @@ RUN apk update \
  && gem specific_install -l https://github.com/tarokkk/fluent-plugin-logzio.git \
  && gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git \
  && gem specific_install -l https://github.com/banzaicloud/fluent-plugin-gcs.git \
- && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git -d fluent-plugin-kubernetes-metadata-filter \
+ && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git -d fluent-plugin-kubernetes-metadata-filter  --ref db473d07f5e9e8cb4900cc845b1418de3a78edc8 \
  && gem specific_install -l https://github.com/banzaicloud/fluent-plugin-label-router.git -b rwlock \
- && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git -d fluent-plugin-enhance-k8s-metadata \
- && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git -d fluent-plugin-kubernetes-sumologic \
+ && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git -d fluent-plugin-enhance-k8s-metadata  --ref db473d07f5e9e8cb4900cc845b1418de3a78edc8 \
+ && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git -d fluent-plugin-kubernetes-sumologic --ref db473d07f5e9e8cb4900cc845b1418de3a78edc8 \
  # https://github.com/SumoLogic/sumologic-kubernetes-fluentd/blob/main/Dockerfile#L35
  && gem specific_install https://github.com/abonas/kubeclient --ref 831e360772c717aab5ca086521c45c86ee51435e \
  && apk del .build-deps $buildDeps \
