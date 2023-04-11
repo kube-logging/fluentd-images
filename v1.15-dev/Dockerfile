@@ -80,8 +80,7 @@ RUN apk update \
  && gem install fluent-plugin-vmware-loginsight -v 1.4.0 \
  && gem install fluent-plugin-vmware-log-intelligence -v 2.0.6 \
  && gem install fluent-plugin-mysqlslowquery -v 0.0.9 \
- # main branch
- && gem specific_install -l https://github.com/tarokkk/fluent-plugin-logzio.git --ref 1cc0dd2c1cc7ca56c82ed80dcffae7e08ba3a766 \
+ && gem install fluent-plugin-logzio -v 0.0.22 \
   # main branch
  && gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git --ref 5199be67d1a385f529fa1d6b6023e95ba7fac27d \
   # master branch
