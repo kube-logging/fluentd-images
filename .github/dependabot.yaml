@@ -52,7 +52,7 @@ updates:
           - "version-update:semver-minor"
 
   - package-ecosystem: "docker"
-    directory: "/v1.15-dev"
+    directory: "/v1.15-staging"
     schedule:
       interval: "daily"
     ignore:

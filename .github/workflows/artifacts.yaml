@@ -24,7 +24,7 @@ jobs:
           - v1.13
           - v1.14
           - v1.15
-          - v1.15-dev
+          - v1.15-staging
 
     steps:
       - name: Checkout
