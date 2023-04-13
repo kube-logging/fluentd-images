@@ -12,11 +12,13 @@ RUN apk update \
         ca-certificates \
         ruby ruby-irb ruby-etc \
         tini libmaxminddb geoip \
+        snappy \
  && buildDeps=" \
       make gcc g++ libc-dev \
       wget bzip2 zlib-dev git linux-headers \
       automake autoconf libtool build-base \
       ruby-dev libc6-compat geoip-dev \
+      snappy-dev \
     " \
  && apk add --no-cache --virtual .build-deps \
         build-base \
@@ -39,12 +41,16 @@ RUN apk update \
  && gem install gelf -v 3.1.0 \
  && gem install elasticsearch -v 8.6.0 \
  && gem install elasticsearch-xpack -v 7.17.7 \
+ && gem install snappy -v 0.2.0 \
  && gem install fluent-plugin-detect-exceptions -v 0.0.15 \
  && gem install specific_install -v 0.3.8 \
  && gem install fluent-plugin-remote-syslog -v 1.1.0 \
+ && gem install fluent-plugin-webhdfs -v 1.5.0 \
  && gem install fluent-plugin-prometheus -v 2.0.3 \
  && gem install fluent-plugin-s3 -v 1.7.2 \
  && gem install fluent-plugin-rewrite-tag-filter -v 2.4.0 \
+ && gem install fluent-plugin-azure-storage-append-blob -v 0.2.1 \
+ && gem install fluent-plugin-oss -v 0.0.2 \
  && gem install fluent-plugin-dedot_filter -v 1.0.0 \
  && gem install fluent-plugin-sumologic_output -v 1.8.0 \
  && gem install fluent-plugin-kafka -v 0.18.1 \
@@ -58,10 +64,23 @@ RUN apk update \
  && gem install fluent-plugin-record-modifier -v 2.1.1 \
  && gem install fluent-plugin-splunk-hec -v 1.3.2 \
  && gem install fluent-plugin-elasticsearch -v 5.2.5 \
+ && gem install fluent-plugin-newrelic -v 1.2.2 \
+ && gem install fluent-plugin-cloudwatch-logs -v 0.14.3 \
  && gem install fluent-plugin-opensearch -v 1.0.10 \
  && gem install fluent-plugin-aws-elasticsearch-service -v 2.4.1 \
  && gem install fluent-plugin-kube-events-timestamp -v 0.1.3 \
  && gem install fluent-plugin-grok-parser -v 2.6.2 \
+ && gem install fluent-plugin-throttle -v 0.0.5 \
+ && gem install fluent-plugin-logdna -v 0.4.0 \
+ && gem install fluent-plugin-datadog -v 0.14.2 \
+ && gem install fluent-plugin-redis -v 0.3.5 \
+ && gem install fluent-plugin-gelf-hs -v 1.0.8 \
+ && gem install fluent-plugin-sqs -v 3.0.0 \
+ && gem install fluent-plugin-mattermost -v 0.2.2 \
+ && gem install fluent-plugin-vmware-loginsight -v 1.4.0 \
+ && gem install fluent-plugin-vmware-log-intelligence -v 2.0.6 \
+ && gem install fluent-plugin-mysqlslowquery -v 0.0.9 \
+ && gem install fluent-plugin-logzio -v 0.0.22 \
   # main branch
  && gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git --ref 5199be67d1a385f529fa1d6b6023e95ba7fac27d \
   # master branch
@@ -72,8 +91,6 @@ RUN apk update \
  && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git --ref 3a5a2e29e3776107a1bf0c9435de5cc2b14fc7f6 -d fluent-plugin-kubernetes-metadata-filter \
  && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git --ref 3a5a2e29e3776107a1bf0c9435de5cc2b14fc7f6 -d fluent-plugin-enhance-k8s-metadata \
  && gem specific_install -l https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git --ref 3a5a2e29e3776107a1bf0c9435de5cc2b14fc7f6 -d fluent-plugin-kubernetes-sumologic \
- # https://github.com/SumoLogic/sumologic-kubernetes-fluentd/blob/main/Dockerfile#L35
- #&& gem specific_install https://github.com/abonas/kubeclient --ref 831e360772c717aab5ca086521c45c86ee51435e \
   # master branch
  && gem specific_install https://github.com/abonas/kubeclient --ref 6b40464cd71e2789ea6de94f618f793a8db9ac49 \
  && apk del .build-deps $buildDeps \
