@@ -1,4 +1,4 @@
-FROM alpine:3.14.10
+FROM alpine:3.18.0
 
 ENV FLUENTD_VERSION 1.14.6
 
