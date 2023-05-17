@@ -26,6 +26,7 @@ RUN apk update \
  && apk add $buildDeps \
  && echo 'gem: --no-document' >> /etc/gemrc \
  && gem install oj -v 3.14.2 \
+ && gem install activesupport -v 6.1.7.3 \
  && gem install http_parser.rb -v 0.8.0 \
  && gem install tzinfo -v 1.2.11 \
  && gem install resolv -v 0.2.2 \
