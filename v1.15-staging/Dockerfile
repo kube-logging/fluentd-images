@@ -64,7 +64,7 @@ RUN apk update \
  && gem install fluent-plugin-multi-format-parser -v 1.0.0 \
  && gem install fluent-plugin-record-modifier -v 2.1.1 \
  && gem install fluent-plugin-splunk-hec -v 1.3.2 \
- && gem install fluent-plugin-elasticsearch -v 5.2.5 \
+ && gem install fluent-plugin-elasticsearch -v 5.3.0 \
  && gem install fluent-plugin-newrelic -v 1.2.2 \
  && gem install fluent-plugin-cloudwatch-logs -v 0.14.3 \
  && gem install fluent-plugin-opensearch -v 1.0.10 \
