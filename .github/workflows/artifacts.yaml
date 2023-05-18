@@ -27,11 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Detect image versions used
-        id: versions
-        run: |
-          echo fluentd=$(grep "ENV FLUENTD_VERSION" ${{ matrix.fluentd }}/Dockerfile | cut -c 21-) >> $GITHUB_OUTPUT
-
       - name: Gather metadata
         id: meta
         uses: docker/metadata-action@v4
@@ -41,8 +36,6 @@ jobs:
           flavor: |
             latest = false
           tags: |
-            type=raw,value=v${{ steps.versions.outputs.fluentd }}-build.${{ github.run_number }}
-            type=raw,value=v${{ steps.versions.outputs.fluentd }}
             type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
             type=raw,value=${{ matrix.fluentd }}
 
