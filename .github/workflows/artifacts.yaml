@@ -17,6 +17,7 @@ jobs:
     strategy:
       # Some older image builds may fail
       fail-fast: false
+      max-parallel: 1
       matrix:
         fluentd:
           - v1.14
