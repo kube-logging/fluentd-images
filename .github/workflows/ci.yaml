@@ -1,20 +1,13 @@
-name: Artifacts
+name: CI
 
 on:
-  push:
-    branches:
-      - main
-
-permissions:
-  packages: write
-  security-events: write
+  pull_request:
 
 jobs:
   container-images:
     name: Container images
     runs-on: ubuntu-latest
     strategy:
-      # Some older image builds may fail
       fail-fast: false
       matrix:
         fluentd:
@@ -39,11 +32,6 @@ jobs:
             type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
             type=raw,value=${{ matrix.fluentd }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-        with:
-          platforms: all
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -55,27 +43,12 @@ jobs:
           password: ${{ github.token }}
         if: github.event_name == 'push'
 
-      - name: Build and push
+      - name: Build
         uses: docker/build-push-action@v4
         with:
           context: ${{ matrix.fluentd }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: ${{ github.event_name == 'push' }}
+          push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.10.0
-        with:
-          image-ref: "ghcr.io/${{ github.repository_owner }}/fluentd:${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}"
-          format: "sarif"
-          output: "trivy-results.sarif"
-        if: github.event_name == 'push'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: "trivy-results.sarif"
-        if: github.event_name == 'push'
