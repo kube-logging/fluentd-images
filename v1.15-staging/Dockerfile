@@ -32,6 +32,7 @@ RUN apk update \
  && gem install resolv -v 0.2.2 \
  && gem install json -v 2.6.3 \
  && gem install yajl-ruby -v 1.4.1 \
+ && gem install async -v 1.31.0 \
  && gem install async-http -v 0.60.1 \
   # removed as it is not available for ruby 3
   # && gem install ext_monitor -v 0.1.2 \
