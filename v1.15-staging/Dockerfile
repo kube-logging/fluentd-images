@@ -68,7 +68,7 @@ RUN apk update \
  && gem install fluent-plugin-elasticsearch -v 5.3.0 \
  && gem install fluent-plugin-newrelic -v 1.2.2 \
  && gem install fluent-plugin-cloudwatch-logs -v 0.14.3 \
- && gem install fluent-plugin-opensearch -v 1.0.10 \
+ && gem install fluent-plugin-opensearch -v 1.1.2 \
  && gem install fluent-plugin-aws-elasticsearch-service -v 2.4.1 \
  && gem install fluent-plugin-kube-events-timestamp -v 0.1.3 \
  && gem install fluent-plugin-grok-parser -v 2.6.2 \
