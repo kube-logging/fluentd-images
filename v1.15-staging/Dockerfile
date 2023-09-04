@@ -52,7 +52,7 @@ RUN apk update \
  && gem install fluent-plugin-s3 -v 1.7.2 \
  && gem install fluent-plugin-rewrite-tag-filter -v 2.4.0 \
  && gem install fluent-plugin-azure-storage-append-blob -v 0.2.1 \
- && gem install fluent-plugin-oss -v 0.0.2 \
+ && gem install fluent-plugin-aliyun-oss -v 0.0.1 \
  && gem install fluent-plugin-dedot_filter -v 1.0.0 \
  && gem install fluent-plugin-sumologic_output -v 1.8.0 \
  && gem install fluent-plugin-kafka -v 0.18.1 \
