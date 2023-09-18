@@ -2,7 +2,7 @@ version: 2
 
 updates:
   - package-ecosystem: "docker"
-    directory: "/v1.14"
+    directory: "/v1.15-ruby3"
     schedule:
       interval: "daily"
     ignore:
@@ -10,27 +10,6 @@ updates:
         update-types:
           - "version-update:semver-major"
           - "version-update:semver-minor"
-
-  - package-ecosystem: "docker"
-    directory: "/v1.15"
-    schedule:
-      interval: "daily"
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-major"
-          - "version-update:semver-minor"
-
-  - package-ecosystem: "docker"
-    directory: "/v1.15-staging"
-    schedule:
-      interval: "daily"
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-major"
-          - "version-update:semver-minor"
-
 
   - package-ecosystem: "github-actions"
     directory: "/"
