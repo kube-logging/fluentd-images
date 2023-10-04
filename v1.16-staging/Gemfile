@@ -9,7 +9,7 @@ gem "json", "2.6.3"
 gem "yajl-ruby", "1.4.1"
 gem "async", "1.31.0"
 gem "async-http", "0.60.1"
-gem "fluentd", "1.15.3"
+gem 'fluentd', '1.16.2'
 gem "prometheus-client", "4.1.0"
 gem "bigdecimal", "3.1.4"
 gem "webrick", "1.8.1"

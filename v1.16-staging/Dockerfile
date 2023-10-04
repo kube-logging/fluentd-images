@@ -1,6 +1,6 @@
 FROM alpine:3.18
 
-ENV FLUENTD_VERSION 1.15.3
+ENV FLUENTD_VERSION 1.16.2
 
 LABEL Description="Fluentd docker image" Vendor="Kube logging" Version="${FLUENTD_VERSION}"
 
