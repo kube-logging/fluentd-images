@@ -24,9 +24,10 @@ RUN apk update \
         build-base \
         ruby-dev gnupg \
  && apk add $buildDeps \
- && echo 'gem: --no-document' >> /etc/gemrc \
- && bundle install
- && apk del .build-deps $buildDeps \
+ && echo 'gem: --no-document' >> /etc/gemrc
+ADD ./Gemfile /Gemfile
+RUN gem install bundler && bundle install 
+RUN apk del .build-deps $buildDeps \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem /usr/lib/ruby/gems/3.*/gems/fluentd-*/test
 
 RUN addgroup -S fluent && adduser -S -G fluent fluent \
