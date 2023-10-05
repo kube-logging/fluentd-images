@@ -61,4 +61,4 @@ gem 'fluent-plugin-label-router', :git => 'https://github.com/kube-logging/fluen
 gem 'fluent-plugin-kubernetes-metadata-filter', :git => 'https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git', :tag => 'v1.16.2-sumo-0', :glob => 'fluent-plugin-kubernetes-metadata-filter/*.gemspec'
 gem 'fluent-plugin-enhance-k8s-metadata', :git => 'https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git', :tag => 'v1.16.2-sumo-0', :glob => 'fluent-plugin-enhance-k8s-metadata/*.gemspec'
 gem 'fluent-plugin-kubernetes-sumologic', :git => 'https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git', :tag => 'v1.16.2-sumo-0', :glob => 'fluent-plugin-kubernetes-sumologic/*.gemspec'
-# gem 'kubeclient', :git => 'https://github.com/abonas/kubeclient.git', :tag => 'v3.1.2'
+gem 'kubeclient', :git => 'https://github.com/abonas/kubeclient.git', :tag => 'v4.11.0'
