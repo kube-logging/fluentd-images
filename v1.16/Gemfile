@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'oj', '3.14.2'
-gem 'activesupport', '6.1.7'
+gem 'activesupport', '6.1.7.5'
 gem 'http_parser.rb', '0.8.0'
 gem 'tzinfo', '>= 1.2.11'
 gem 'resolv', '0.2.2'
