@@ -4,6 +4,8 @@ ENV FLUENTD_VERSION 1.16.2
 
 LABEL Description="Fluentd docker image" Vendor="Kube logging" Version="${FLUENTD_VERSION}"
 
+ADD ./Gemfile /Gemfile
+
 # Do not split this into multiple RUN!
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete' has no effect
@@ -24,10 +26,9 @@ RUN apk update \
         build-base \
         ruby-dev gnupg \
  && apk add $buildDeps \
- && echo 'gem: --no-document' >> /etc/gemrc
-ADD ./Gemfile /Gemfile
-RUN gem install bundler && bundle install 
-RUN apk del .build-deps $buildDeps \
+ && echo 'gem: --no-document' >> /etc/gemrc \
+ && gem install bundler && bundle install \
+ && apk del .build-deps $buildDeps \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem /usr/lib/ruby/gems/3.*/gems/fluentd-*/test
 
 RUN addgroup -S fluent && adduser -S -G fluent fluent \
