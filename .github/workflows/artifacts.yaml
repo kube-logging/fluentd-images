@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         fluentd:
-          - v1.15-staging
           - v1.15-ruby3
+          - v1.16
 
     steps:
       - name: Checkout
