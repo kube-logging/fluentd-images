@@ -29,6 +29,12 @@ jobs:
           tags: |
             type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
             type=raw,value=${{ matrix.fluentd }}
+          labels: |
+            org.opencontainers.image.description=Custom-built Fluentd image for the Logging operator
+            org.opencontainers.image.title=Fluentd docker image
+            org.opencontainers.image.authors=kube-logging authors
+            org.opencontainers.image.documentation=https://kube-logging.dev/docs/
+            org.opencontainers.image.version=${{ matrix.fluentd }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
