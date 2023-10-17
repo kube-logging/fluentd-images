@@ -5,8 +5,8 @@ source 'https://rubygems.org'
 # gem 'snappy', '0.3.0' #output
 # gem 'fluent-plugin-s3', '1.7.2' #output
 # gem 'fluent-plugin-azure-storage-append-blob', '0.2.1' #output, azurestore
-gem 'yajl-ruby', '1.4.3' #CloudWatchOutput
-# gem 'oj', '3.16.1'#	// With default behavior, OpenSearch client uses Yajl as JSON encoder/decoder. Oj is the alternative high performance JSON encoder/decoder. When this parameter sets as true, OpenSearch client uses Oj as JSON encoder/decoder.
+#gem 'yajl-ruby', '1.4.3' #CloudWatchOutput
+#gem 'oj', '3.16.1'#	// With default behavior, OpenSearch client uses Yajl as JSON encoder/decoder. Oj is the alternative high performance JSON encoder/decoder. When this parameter sets as true, OpenSearch client uses Oj as JSON encoder/decoder.
 # gem 'fluent-plugin-aliyun-oss', '0.0.1'#output, OSSOutput
 # gem 'fluent-plugin-sumologic_output', '1.8.0' #output?
 # gem 'fluent-plugin-kafka', '0.19.1' #output?
@@ -44,16 +44,16 @@ gem 'yajl-ruby', '1.4.3' #CloudWatchOutput
 # gem 'elasticsearch', '8.10.0'
 # gem 'elasticsearch-xpack', '7.17.9'
 # gem 'activesupport', '6.1.7.5'
-gem 'http_parser.rb', '0.8.0'
-gem 'tzinfo', '>= 1.2.11'
-# gem 'resolv', '0.2.2'
+#gem 'http_parser.rb', '0.8.0'
+#gem 'tzinfo', '>= 1.2.11'
+#gem 'resolv', '0.2.2'
 #gem 'json', '2.6.3'
-# gem 'async', '1.31.0'
-# gem 'async-http', '0.60.2'
+#gem 'async', '1.31.0'
+#gem 'async-http', '0.60.2'
 gem 'fluentd', '1.16.2'
-# gem 'prometheus-client', '4.2.1'
+#gem 'prometheus-client', '4.2.1'
 # gem 'bigdecimal', '3.1.4'
-gem 'webrick', '1.8.1'
+#gem 'webrick', '1.8.1'
 
 # gem 'fluent-plugin-remote-syslog', '1.1.0'
 # gem 'fluent-plugin-webhdfs', '1.5.0'
@@ -68,6 +68,6 @@ gem 'webrick', '1.8.1'
 # gem 'fluent-plugin-mysqlslowquery', '0.0.9'
 
 gem 'fluent-plugin-label-router', :git => 'https://github.com/kube-logging/fluent-plugin-label-router.git', :ref => '2ff43789f895735b7852e0a1a809280e22d9e8ef' #router
-gem 'fluent-plugin-kubernetes-metadata-filter', :git => 'https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git', :tag => 'v1.16.2-sumo-0', :glob => 'fluent-plugin-kubernetes-metadata-filter/*.gemspec'
+#gem 'fluent-plugin-kubernetes-metadata-filter', :git => 'https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git', :tag => 'v1.16.2-sumo-0', :glob => 'fluent-plugin-kubernetes-metadata-filter/*.gemspec'
 # gem 'fluent-plugin-kubernetes-sumologic', :git => 'https://github.com/SumoLogic/sumologic-kubernetes-fluentd.git', :tag => 'v1.16.2-sumo-0', :glob => 'fluent-plugin-kubernetes-sumologic/*.gemspec'
 # gem 'kubeclient', :git => 'https://github.com/abonas/kubeclient.git', :tag => 'v4.11.0'
