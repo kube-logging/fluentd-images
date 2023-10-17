@@ -3,6 +3,7 @@ FROM alpine:3.18
 ENV FLUENTD_VERSION 1.16.2
 
 ADD ./Gemfile /Gemfile
+ADD ./Gemfile.lock /Gemfile.lock
 
 # Do not split this into multiple RUN!
 # Docker creates a layer for every RUN-Statement
