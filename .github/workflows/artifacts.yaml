@@ -53,8 +53,48 @@ jobs:
           password: ${{ github.token }}
         if: github.event_name == 'push'
 
-      - name: Build and push
+      - name: Build and push BASE_IMAGE
         uses: docker/build-push-action@v5
+        if: ${{ matrix.fluentd != 'v1.15-ruby3'}}
+        with:
+          context: ${{ matrix.fluentd }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          target: base
+
+      - name: Build and push MINIMAL_IMAGE
+        uses: docker/build-push-action@v5
+        if: ${{ matrix.fluentd != 'v1.15-ruby3'}}
+        with:
+          context: ${{ matrix.fluentd }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          target: minimal
+
+      - name: Build and push FULL_IMAGE
+        uses: docker/build-push-action@v5
+        if: ${{ matrix.fluentd != 'v1.15-ruby3'}}
+        with:
+          context: ${{ matrix.fluentd }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          target: full
+      
+      - name: Build and push v1.15
+        uses: docker/build-push-action@v5
+        if: ${{ matrix.fluentd == 'v1.15-ruby3'}}
         with:
           context: ${{ matrix.fluentd }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
