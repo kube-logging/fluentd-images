@@ -47,12 +47,41 @@ jobs:
           password: ${{ github.token }}
         if: github.event_name == 'push'
 
-      - name: Build
+      - name: Build BASE_IMAGE
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.fluentd }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=raw,value=${{ matrix.fluentd }}-base
           labels: ${{ steps.meta.outputs.labels }}
+          target: base
+      
+      - name: Build MINIMAL_IMAGE
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.fluentd }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=raw,value=${{ matrix.fluentd }}-minimal
+          labels: ${{ steps.meta.outputs.labels }}
+          target: minimal
+
+      - name: Build FULL_IMAGE
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.fluentd }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=raw,value=${{ matrix.fluentd }}-full
+          labels: ${{ steps.meta.outputs.labels }}
+          target: full
