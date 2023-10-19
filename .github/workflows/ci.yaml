@@ -53,10 +53,10 @@ jobs:
           context: ${{ matrix.fluentd }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: false
+          push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            type=raw,value=${{ matrix.fluentd }}-base
+            ${{ matrix.fluentd }}-base
           labels: ${{ steps.meta.outputs.labels }}
           target: base
       
@@ -66,10 +66,10 @@ jobs:
           context: ${{ matrix.fluentd }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: false
+          push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            type=raw,value=${{ matrix.fluentd }}-minimal
+            ${{ matrix.fluentd }}-minimal
           labels: ${{ steps.meta.outputs.labels }}
           target: minimal
 
@@ -79,9 +79,9 @@ jobs:
           context: ${{ matrix.fluentd }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: false
+          push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            type=raw,value=${{ matrix.fluentd }}-full
+            ${{ matrix.fluentd }}-full
           labels: ${{ steps.meta.outputs.labels }}
           target: full
