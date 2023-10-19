@@ -58,7 +58,7 @@ jobs:
         if: ${{ matrix.fluentd != 'v1.15-ruby3'}}
         with:
           context: ${{ matrix.fluentd }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: ${{ github.event_name == 'push' }}
@@ -71,7 +71,7 @@ jobs:
         if: ${{ matrix.fluentd != 'v1.15-ruby3'}}
         with:
           context: ${{ matrix.fluentd }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: ${{ github.event_name == 'push' }}
@@ -84,7 +84,7 @@ jobs:
         if: ${{ matrix.fluentd != 'v1.15-ruby3'}}
         with:
           context: ${{ matrix.fluentd }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: ${{ github.event_name == 'push' }}
@@ -97,7 +97,7 @@ jobs:
         if: ${{ matrix.fluentd == 'v1.15-ruby3'}}
         with:
           context: ${{ matrix.fluentd }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: ${{ github.event_name == 'push' }}
