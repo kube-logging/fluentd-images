@@ -13,6 +13,10 @@ jobs:
         fluentd:
           #- v1.15-ruby3
           - v1.16
+        image-type:
+          - base
+          - minimal
+          - full
 
     steps:
       - name: Checkout
@@ -28,7 +32,7 @@ jobs:
             latest = false
           tags: |
             type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
-            type=raw,value=${{ matrix.fluentd }}
+            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}
           labels: |
             org.opencontainers.image.description=Custom-built Fluentd image for the Logging operator
             org.opencontainers.image.title=Fluentd docker image
@@ -46,7 +50,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ github.token }}
 
-      - name: Build BASE_IMAGE
+      - name: Build image (${{ matrix.image-type }})
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.fluentd }}
@@ -55,32 +59,5 @@ jobs:
           push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            ${{ matrix.fluentd }}-base
           labels: ${{ steps.meta.outputs.labels }}
-          target: base
-      
-      - name: Build MINIMAL_IMAGE
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{ matrix.fluentd }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            ${{ matrix.fluentd }}-minimal
-          labels: ${{ steps.meta.outputs.labels }}
-          target: minimal
-
-      - name: Build FULL_IMAGE
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{ matrix.fluentd }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            ${{ matrix.fluentd }}-full
-          labels: ${{ steps.meta.outputs.labels }}
-          target: full
+          target: ${{ matrix.image-type }}
