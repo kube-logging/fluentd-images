@@ -71,7 +71,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.12.0
         with:
-          image-ref: "ghcr.io/${{ github.repository_owner }}/fluentd:${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}"
+          image-ref: "ghcr.io/overorion/fluentd:${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}"
           format: "sarif"
           output: "trivy-results.sarif"
         if: github.event_name == 'push'
