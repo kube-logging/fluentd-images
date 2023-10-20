@@ -24,8 +24,10 @@ RUN apk update \
  && apk add $BUILD_DEPS \
  && echo 'gem: --no-document' >> /etc/gemrc \
  # The only required fluentd dependency is the label router
+ # kubeclient install is upgrading the one from the base image
  && gem install specific_install -v 0.3.8 \
  && gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 2ff43789f895735b7852e0a1a809280e22d9e8ef \
+ && gem specific_install -l https://github.com/ManageIQ/kubeclient.git --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem /usr/lib/ruby/gems/3.*/gems/fluentd-*/test
  
 
@@ -42,37 +44,38 @@ ENV LD_PRELOAD=""
 EXPOSE 24224 5140
 USER fluent
  
-### Minimal image
+### Minimal image, filters only
 FROM base AS minimal
 ADD ./Gemfile /Gemfile
-ADD ./Gemfile.lock /Gemfile.lock
-ARG BUILD_DEPS
 USER root
 # Do not split this into multiple RUN!
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete' has no effect
 RUN apk update \
- && apk add $BUILD_DEPS \
- && gem specific_install -l https://github.com/ManageIQ/kubeclient --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
- && gem specific_install -l https://github.com/banzaicloud/fluent-plugin-gcs.git --ref 9fbff74734ddce289f9a10734a338b3c7f0065b5 \
- && gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git --ref 5199be67d1a385f529fa1d6b6023e95ba7fac27d \
- && apk del .build-deps $BUILD_DEPS \
+ && echo 'gem: --no-document' >> /etc/gemrc \
+ && fluent-gem install --without output --file /Gemfile \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem /usr/lib/ruby/gems/3.*/gems/fluentd-*/test
 
 USER fluent
 
 ### Full image
 FROM minimal as full
+
 ARG BUILD_DEPS
 USER root
+ADD ./output_aws_elasticsearch_service.gemfile /output_aws_elasticsearch_service.gemfile
+ADD ./output_logdna.gemfile /output_logdna.gemfile
 # Do not split this into multiple RUN!
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete' has no effect
 RUN apk update \
- && apk add $BUILD_DEPS \
  && echo 'gem: --no-document' >> /etc/gemrc \
  && gem install specific_install -v 0.3.8 \
- && gem install bundler && bundle install \ 
+ && gem specific_install -l https://github.com/kube-logging/fluent-plugin-gcs.git --ref 71a0932e75509545a2d28e337642ee1f973cca90 \
+ && gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git --ref 5199be67d1a385f529fa1d6b6023e95ba7fac27d \
+ && fluent-gem install --file /Gemfile \ 
+ && fluent-gem install --file /output_aws_elasticsearch_service.gemfile\
+ && fluent-gem install --file /output_logdna.gemfile \
  && apk del .build-deps $BUILD_DEPS \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem /usr/lib/ruby/gems/3.*/gems/fluentd-*/test
 
