@@ -7,7 +7,6 @@ ARG BUILD_DEPS=" \
       "
 # Base image based on https://gallery.ecr.aws/sumologic/kubernetes-fluentd
 FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:98a9105af5199295f812020521f8ae86be927a4adb3ddbb9cf44211dd575a736 AS base
-ENV FLUENTD_VERSION 1.16.2
 ARG BUILD_DEPS
 USER root
 # Do not split this into multiple RUN!
@@ -24,7 +23,6 @@ RUN apk update \
         ruby-dev gnupg \
  && apk add $BUILD_DEPS \
  && echo 'gem: --no-document' >> /etc/gemrc \
- && gem install fluentd -v ${FLUENTD_VERSION} \
  # The only required fluentd dependency is the label router
  && gem install specific_install -v 0.3.8 \
  && gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 2ff43789f895735b7852e0a1a809280e22d9e8ef \
@@ -55,9 +53,6 @@ USER root
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete' has no effect
 RUN apk update \
- && apk add --no-cache --virtual .build-deps \
-        build-base \
-        ruby-dev gnupg \
  && apk add $BUILD_DEPS \
  && gem specific_install --debug --backtrace --verbose https://github.com/ManageIQ/kubeclient --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
  && gem specific_install --debug --backtrace --verbose -l https://github.com/banzaicloud/fluent-plugin-gcs.git --ref 9fbff74734ddce289f9a10734a338b3c7f0065b5 \
@@ -75,9 +70,6 @@ USER root
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete' has no effect
 RUN apk update \
- && apk add --no-cache --virtual .build-deps \
-        build-base \
-        ruby-dev gnupg \
  && apk add $BUILD_DEPS \
  && echo 'gem: --no-document' >> /etc/gemrc \
  && gem install specific_install -v 0.3.8 \
