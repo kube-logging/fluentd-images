@@ -48,6 +48,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ github.token }}
+        if: github.event_name == 'push'
 
       - name: Build image (${{ matrix.image-type }})
         uses: docker/build-push-action@v5
@@ -55,7 +56,7 @@ jobs:
           context: ${{ matrix.fluentd }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: true
+          push: false
           tags: |
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
