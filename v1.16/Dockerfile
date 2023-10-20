@@ -5,7 +5,7 @@ ARG BUILD_DEPS=" \
       ruby-dev libc6-compat geoip-dev \
       snappy-dev \
       "
-### Very base image based on https://gallery.ecr.aws/sumologic/kubernetes-fluentd
+# Base image based on https://gallery.ecr.aws/sumologic/kubernetes-fluentd
 FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:98a9105af5199295f812020521f8ae86be927a4adb3ddbb9cf44211dd575a736 AS base
 ENV FLUENTD_VERSION 1.16.2
 ARG BUILD_DEPS
@@ -31,6 +31,8 @@ RUN apk update \
  && apk del .build-deps $BUILD_DEPS \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem /usr/lib/ruby/gems/3.*/gems/fluentd-*/test
  
+
+RUN mkdir -p /buffers && chown -R fluent /buffers
 
 COPY fluent.conf /fluentd/etc/
 COPY entrypoint.sh /bin/
