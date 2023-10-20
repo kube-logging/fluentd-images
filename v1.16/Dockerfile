@@ -45,8 +45,6 @@ USER fluent
  
 ### Minimal image
 FROM base AS minimal
-ADD ./Gemfile /Gemfile
-ADD ./Gemfile.lock /Gemfile.lock
 ARG BUILD_DEPS
 USER root
 # Do not split this into multiple RUN!
@@ -64,6 +62,8 @@ USER fluent
 
 ### Full image
 FROM minimal as full
+ADD ./Gemfile /Gemfile
+ADD ./Gemfile.lock /Gemfile.lock
 ARG BUILD_DEPS
 USER root
 # Do not split this into multiple RUN!
