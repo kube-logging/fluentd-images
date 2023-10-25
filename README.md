@@ -5,17 +5,18 @@ This repository publishes [Fluentd](https://www.fluentd.org/) container images t
 ## Usage
 
 Pick Fluentd version (either full semver or a shortened major-minor version).
+Pick an image type (`minimal` contains filter plugins only, `full` has output plugins as well).
 Image tags are constructed according to the following pattern:
 
 ```
-ghcr.io/kube-logging/fluentd:VERSION
+ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE
 ```
 
 To ensure that subsequent builds don't break your production environment,
 you may want to pin your image to a specific build:
 
 ```
-ghcr.io/kube-logging/fluentd:VERSION-build.BUILD_NUMBER
+ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE-build.BUILD_NUMBER
 ```
 
 While the tag in the first example is a moving tag (subsequent builds of the same versions produce the same tags),

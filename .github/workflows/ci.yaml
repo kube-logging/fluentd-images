@@ -30,7 +30,7 @@ jobs:
           flavor: |
             latest = false
           tags: |
-            type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
+            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}-build.${{ github.run_number }}
             type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}
           labels: |
             org.opencontainers.image.description=Custom-built Fluentd image for the Logging operator

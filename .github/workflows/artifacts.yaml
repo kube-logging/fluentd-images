@@ -38,6 +38,8 @@ jobs:
             latest = false
           tags: |
             type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}
+            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}-build.${{ github.run_number }}
+
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
