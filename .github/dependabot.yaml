@@ -2,7 +2,7 @@ version: 2
 
 updates:
   - package-ecosystem: "docker"
-    directory: "/v1.15-ruby3"
+    directory: "/v1.16"
     schedule:
       interval: "daily"
     ignore:
