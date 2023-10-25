@@ -22,6 +22,16 @@ ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE-build.BUILD_NUMBER
 While the tag in the first example is a moving tag (subsequent builds of the same versions produce the same tags),
 build number annotated tags are immutable.
 
+### Add new plugins
+If you wish to add a new plugin, use this image as a base image in your `Dockerfile`:
+```
+FROM ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE-build.BUILD_NUMBER
+```
+Then add your plugin:
+```
+RUN fluent-gem install PLUGIN_NAME -v PLUGIN_VERSION
+``` 
+
 ## Maintenance
 
 Whenever a new Fluentd version is released, check the supported versions and add/remove versions in this repository accordingly.
