@@ -15,3 +15,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
+  - package-ecosystem: "bundler"
+    directory: "/v1.16"
+    schedule:
+      interval: "daily"
