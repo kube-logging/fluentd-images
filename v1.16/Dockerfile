@@ -50,13 +50,16 @@ USER fluent
 
 ### Minimal image, filters only
 FROM base AS minimal
-ADD ./Gemfile /Gemfile
-ADD ./Gemfile.lock /Gemfile.lock
+
+ADD ./Gemfile.filters /Gemfile.filters
+ADD ./Gemfile.filters.lock /Gemfile.filters.lock
 
 USER root
 
+ENV BUNDLE_WITHOUT="output,test,development"
+
 RUN apk add --no-cache $BUILD_DEPS \
- && fluent-gem install --without development,test,output --file /Gemfile \
+ && fluent-gem install --file Gemfile.filters \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
 
@@ -65,12 +68,15 @@ USER fluent
 ### Full image
 FROM minimal as full
 
+ADD ./Gemfile.outputs /Gemfile.outputs
+ADD ./Gemfile.outputs.lock /Gemfile.outputs.lock
+
 USER root
 
 RUN apk add --no-cache $BUILD_DEPS \
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-gcs.git --ref 71a0932e75509545a2d28e337642ee1f973cca90 \
  && fluent-gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git --ref 5199be67d1a385f529fa1d6b6023e95ba7fac27d \
- && fluent-gem install --without development,test --file /Gemfile \
+ && fluent-gem install --file /Gemfile.outputs \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
 
