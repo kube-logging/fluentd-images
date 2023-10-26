@@ -35,6 +35,7 @@ RUN apk add --no-cache \
  && fluent-gem install specific_install -v 0.3.8 \
  && fluent-gem specific_install -l https://github.com/ManageIQ/kubeclient.git --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 2ff43789f895735b7852e0a1a809280e22d9e8ef \
+ && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
 
@@ -59,7 +60,9 @@ USER root
 ENV BUNDLE_WITHOUT="output,test,development"
 
 RUN apk add --no-cache $BUILD_DEPS \
+ && touch /etc/gemrc \
  && fluent-gem install --file Gemfile.filters \
+ && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
 
@@ -74,9 +77,11 @@ ADD ./Gemfile.outputs.lock /Gemfile.outputs.lock
 USER root
 
 RUN apk add --no-cache $BUILD_DEPS \
+ && touch /etc/gemrc \
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-gcs.git --ref 71a0932e75509545a2d28e337642ee1f973cca90 \
  && fluent-gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git --ref 5199be67d1a385f529fa1d6b6023e95ba7fac27d \
  && fluent-gem install --file /Gemfile.outputs \
+ && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
 
