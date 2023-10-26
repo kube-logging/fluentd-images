@@ -49,8 +49,8 @@ EXPOSE 24224 5140
 
 USER fluent
 
-### Minimal image, filters only
-FROM base AS minimal
+### Image with all the filters
+FROM base AS filters
 
 ADD ./Gemfile.filters /Gemfile.filters
 ADD ./Gemfile.filters.lock /Gemfile.filters.lock
@@ -68,8 +68,8 @@ RUN apk add --no-cache $BUILD_DEPS \
 
 USER fluent
 
-### Full image
-FROM minimal as full
+### Image with all the filters and outputs
+FROM filters as full
 
 ADD ./Gemfile.outputs /Gemfile.outputs
 ADD ./Gemfile.outputs.lock /Gemfile.outputs.lock

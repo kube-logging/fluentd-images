@@ -14,7 +14,7 @@ jobs:
           - v1.16
         image-type:
           - base
-          - minimal
+          - filters
           - full
 
     steps:

@@ -5,7 +5,7 @@ This repository publishes [Fluentd](https://www.fluentd.org/) container images t
 ## Usage
 
 Pick Fluentd version (either full semver or a shortened major-minor version).
-Pick an image type (`minimal` contains filter plugins only, `full` has output plugins as well).
+Pick an image type (`filters` contains filter plugins only, `full` has output plugins as well).
 Image tags are constructed according to the following pattern:
 
 ```
@@ -30,7 +30,7 @@ FROM ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE-build.BUILD_NUMBER
 Then add your plugin:
 ```
 RUN fluent-gem install PLUGIN_NAME -v PLUGIN_VERSION
-``` 
+```
 
 ## Maintenance
 
