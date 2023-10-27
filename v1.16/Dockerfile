@@ -50,8 +50,8 @@ USER fluent
 ### Image with all the filters
 FROM base AS filters
 
-ADD ./Gemfile.filters /Gemfile.filters
-ADD ./Gemfile.filters.lock /Gemfile.filters.lock
+ADD ./filters/Gemfile /Gemfile.filters
+ADD ./filters/Gemfile.lock /Gemfile.filters.lock
 
 USER root
 
@@ -69,8 +69,8 @@ USER fluent
 ### Image with all the filters and outputs
 FROM filters as full
 
-ADD ./Gemfile.outputs /Gemfile.outputs
-ADD ./Gemfile.outputs.lock /Gemfile.outputs.lock
+ADD ./outputs/Gemfile /Gemfile.outputs
+ADD ./outputs/Gemfile.lock /Gemfile.outputs.lock
 
 USER root
 
