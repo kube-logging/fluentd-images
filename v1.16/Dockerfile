@@ -47,6 +47,9 @@ EXPOSE 24224 5140
 
 USER fluent
 
+ENTRYPOINT ["tini",  "--", "/bin/entrypoint.sh"]
+CMD ["fluentd"]
+
 ### Image with all the filters
 FROM base AS filters
 
@@ -84,6 +87,3 @@ RUN apk add --no-cache $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
 
 USER fluent
-
-ENTRYPOINT ["tini",  "--", "/bin/entrypoint.sh"]
-CMD ["fluentd"]
