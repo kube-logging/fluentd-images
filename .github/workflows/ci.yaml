@@ -11,8 +11,11 @@ jobs:
       fail-fast: false
       matrix:
         fluentd:
-          - v1.15-ruby3
           - v1.16
+        image-type:
+          - base
+          - filters
+          - full
 
     steps:
       - name: Checkout
@@ -27,14 +30,14 @@ jobs:
           flavor: |
             latest = false
           tags: |
-            type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
-            type=raw,value=${{ matrix.fluentd }}
+            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}-build.${{ github.run_number }}
+            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}
           labels: |
             org.opencontainers.image.description=Custom-built Fluentd image for the Logging operator
             org.opencontainers.image.title=Fluentd docker image
             org.opencontainers.image.authors=kube-logging authors
             org.opencontainers.image.documentation=https://kube-logging.dev/docs/
-            org.opencontainers.image.version=${{ matrix.fluentd }}
+            org.opencontainers.image.version=${{ matrix.fluentd }}-${{ matrix.image-type }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -47,12 +50,14 @@ jobs:
           password: ${{ github.token }}
         if: github.event_name == 'push'
 
-      - name: Build
+      - name: Build image (${{ matrix.image-type }})
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.fluentd }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          target: ${{ matrix.image-type }}

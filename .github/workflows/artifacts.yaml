@@ -18,8 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         fluentd:
-          - v1.15-ruby3
           - v1.16
+        image-type:
+          - base
+          - filters
+          - full
 
     steps:
       - name: Checkout
@@ -34,8 +37,9 @@ jobs:
           flavor: |
             latest = false
           tags: |
-            type=raw,value=${{ matrix.fluentd }}-build.${{ github.run_number }}
-            type=raw,value=${{ matrix.fluentd }}
+            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}
+            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}-build.${{ github.run_number }}
+
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -53,16 +57,18 @@ jobs:
           password: ${{ github.token }}
         if: github.event_name == 'push'
 
-      - name: Build and push
+      - name: Build and push (${{ matrix.image-type }})
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.fluentd }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: ${{ github.event_name == 'push' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          target: ${{ matrix.image-type }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.12.0
