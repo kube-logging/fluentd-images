@@ -103,7 +103,7 @@ GEM
       gelf (>= 2.0.0)
     fluent-plugin-grafana-loki (1.2.20)
       fluentd (>= 1.9.3, < 2)
-    fluent-plugin-kafka (0.19.1)
+    fluent-plugin-kafka (0.19.2)
       fluentd (>= 0.10.58, < 2)
       ltsv
       ruby-kafka (>= 1.5.0, < 2)
@@ -158,12 +158,12 @@ GEM
       fluentd (>= 0.14.20)
       http (>= 4.0)
       myslog (~> 0.0)
-    fluent-plugin-vmware-loginsight (1.4.1)
+    fluent-plugin-vmware-loginsight (1.4.2)
       fluentd (>= 0.14.10, < 2)
     fluent-plugin-webhdfs (1.5.0)
       fluentd (>= 0.14.22)
       webhdfs (>= 0.10.0)
-    fluentd (1.16.2)
+    fluentd (1.16.3)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.9.0)
@@ -309,7 +309,7 @@ DEPENDENCIES
   fluent-plugin-elasticsearch (= 5.3.0)
   fluent-plugin-gelf-hs (= 1.0.8)
   fluent-plugin-grafana-loki (= 1.2.20)
-  fluent-plugin-kafka (= 0.19.1)
+  fluent-plugin-kafka (= 0.19.2)
   fluent-plugin-kinesis (= 3.4.2)
   fluent-plugin-logzio (= 0.2.2)
   fluent-plugin-mattermost (= 0.2.2)
@@ -321,7 +321,7 @@ DEPENDENCIES
   fluent-plugin-sqs (= 3.0.0)
   fluent-plugin-sumologic_output (= 1.8.0)
   fluent-plugin-vmware-log-intelligence (= 2.0.8)
-  fluent-plugin-vmware-loginsight (= 1.4.1)
+  fluent-plugin-vmware-loginsight (= 1.4.2)
   fluent-plugin-webhdfs (= 1.5.0)
 
 BUNDLED WITH
