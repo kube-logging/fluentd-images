@@ -27,6 +27,7 @@ RUN apk add --no-cache \
         tini libmaxminddb geoip \
         snappy \
  && apk add --no-cache $BUILD_DEPS \
+ && apk add --no-cache "libssl3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
  # The only required fluentd dependency is the label router
  # kubeclient install is upgrading the one from the base image
