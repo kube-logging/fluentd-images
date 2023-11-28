@@ -1,4 +1,14 @@
 GEM
+  remote: https://index.rubygems.org/
+  specs:
+    fluent-plugin-ua-parser (1.2.0)
+      fluentd (>= 0.14, < 2)
+      lru_redux (>= 1.0.0)
+      user_agent_parser (>= 2.2.0)
+    lru_redux (1.1.0)
+    user_agent_parser (2.16.0)
+
+GEM
   remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.2.2)
@@ -89,6 +99,4 @@ DEPENDENCIES
   fluent-plugin-rewrite-tag-filter (= 2.4.0)
   fluent-plugin-tag-normaliser (= 0.1.2)
   fluent-plugin-throttle (= 0.0.5)
-
-BUNDLED WITH
-   2.4.21
+  fluent-plugin-ua-parser (= 1.2.0)
