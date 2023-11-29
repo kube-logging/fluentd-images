@@ -28,6 +28,7 @@ RUN apk add --no-cache \
         snappy \
  && apk add --no-cache $BUILD_DEPS \
  && apk add --no-cache "libssl3>=3.1.4-r1" \
+ && apk add --no-cache "libcrypto3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
  # The only required fluentd dependency is the label router
  # kubeclient install is upgrading the one from the base image
