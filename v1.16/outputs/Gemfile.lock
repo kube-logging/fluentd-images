@@ -92,7 +92,7 @@ GEM
     fluent-plugin-datadog (0.14.2)
       fluentd (>= 1, < 2)
       net-http-persistent (~> 4.0.1)
-    fluent-plugin-elasticsearch (5.4.1)
+    fluent-plugin-elasticsearch (5.4.2)
       elasticsearch
       excon
       faraday (>= 2.0.0)
@@ -306,7 +306,7 @@ DEPENDENCIES
   fluent-plugin-aliyun-oss (= 0.0.1)
   fluent-plugin-cloudwatch-logs (= 0.14.3)
   fluent-plugin-datadog (= 0.14.2)
-  fluent-plugin-elasticsearch (= 5.4.1)
+  fluent-plugin-elasticsearch (= 5.4.2)
   fluent-plugin-gelf-hs (= 1.0.8)
   fluent-plugin-grafana-loki (= 1.2.20)
   fluent-plugin-kafka (= 0.19.2)
