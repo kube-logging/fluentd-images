@@ -30,6 +30,13 @@ RUN apk add --no-cache \
  && apk add --no-cache "libssl3>=3.1.4-r1" \
  && apk add --no-cache "libcrypto3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
+ # need to rebuild these gems to have the extensions installed
+ && fluent-gem install \
+         bigdecimal:1.4.4 \
+         oj:3.15.0 \
+         google-protobuf:3.21.12 \
+         nio4r:2.6.0 \
+         snappy:0.3.0 \
  # The only required fluentd dependency is the label router
  # kubeclient install is upgrading the one from the base image
  && fluent-gem install specific_install -v 0.3.8 \
