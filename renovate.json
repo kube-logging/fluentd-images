@@ -3,7 +3,11 @@
     "extends": [
         "config:base",
         "schedule:daily",
-        "group:all"
+        "group:all",
+        "config:recommended"
+    ],
+    "ignorePaths": [
+        "v1.16-ruby3.2/"
     ],
     "automerge": true,
     "major": {
