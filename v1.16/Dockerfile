@@ -86,7 +86,8 @@ USER root
 
 RUN apk add --no-cache $BUILD_DEPS \
  && touch /etc/gemrc \
- && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-gcs.git --ref 71a0932e75509545a2d28e337642ee1f973cca90 \
+ # TODO get rid of this by submitting the patch upstream
+ && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-gcs.git --ref ad6a7cb0f166e2c1648954a928e1e9b8cdcbf93d \
  && fluent-gem specific_install -l https://github.com/acquia/fluent-plugin-syslog_rfc5424.git --ref 5199be67d1a385f529fa1d6b6023e95ba7fac27d \
  && fluent-gem install --file /Gemfile.outputs \
  && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
