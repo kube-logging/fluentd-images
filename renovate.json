@@ -7,7 +7,6 @@
         "config:recommended"
     ],
     "ignorePaths": [
-        "v1.16-ruby3.2/"
     ],
     "automerge": true,
     "major": {
