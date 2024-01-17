@@ -44,7 +44,7 @@ GEM
     base64 (0.2.0)
     bigdecimal (3.1.4)
     bindata (2.4.15)
-    concurrent-ruby (1.2.2)
+    concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     cool.io (1.8.0)
     date (3.3.3)
@@ -92,7 +92,7 @@ GEM
     fluent-plugin-datadog (0.14.2)
       fluentd (>= 1, < 2)
       net-http-persistent (~> 4.0.1)
-    fluent-plugin-elasticsearch (5.4.2)
+    fluent-plugin-elasticsearch (5.4.3)
       elasticsearch
       excon
       faraday (>= 2.0.0)
@@ -278,7 +278,7 @@ GEM
     timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.3)
+    tzinfo-data (1.2023.4)
       tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
@@ -306,7 +306,7 @@ DEPENDENCIES
   fluent-plugin-aliyun-oss (= 0.0.1)
   fluent-plugin-cloudwatch-logs (= 0.14.3)
   fluent-plugin-datadog (= 0.14.2)
-  fluent-plugin-elasticsearch (= 5.4.2)
+  fluent-plugin-elasticsearch (= 5.4.3)
   fluent-plugin-gelf-hs (= 1.0.8)
   fluent-plugin-grafana-loki (= 1.2.20)
   fluent-plugin-kafka (= 0.19.2)
