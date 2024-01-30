@@ -1,8 +1,7 @@
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
 FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:b44e3526ae59b558576de5695aa5d6b1bdd4e0a080372f0f25d77a4d2092a476 AS sumo
 
-# Adapted from https://github.com/SumoLogic/sumologic-kubernetes-fluentd/blob/main/alpine.Dockerfile#L102C1-L142C16
-FROM ruby:3.2.2-alpine3.18 as base
+FROM ruby:3.2.3-alpine3.18 as base
 
 ARG BUILD_DEPS=" \
       make gcc g++ libc-dev \
@@ -45,8 +44,6 @@ RUN apk add --no-cache \
  && fluent-gem install specific_install -v 0.3.8 \
  && fluent-gem specific_install -l https://github.com/ManageIQ/kubeclient.git --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 2ff43789f895735b7852e0a1a809280e22d9e8ef \
- # TODO remove once the default version is greater than 0.12.1 https://avd.aquasec.com/nvd/2023/cve-2023-36617/
- && fluent-gem install uri -v 0.12.2 \
  && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
