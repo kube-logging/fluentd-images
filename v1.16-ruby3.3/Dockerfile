@@ -29,7 +29,7 @@ RUN apk add --no-cache \
         snappy \
  && apk add --no-cache $BUILD_DEPS \
  && echo 'gem: --no-document' >> /etc/gemrc \
- 
+
  # BASEIMAGEDEPS
  # need to rebuild these gems to have the extensions installed
  && fluent-gem install \
