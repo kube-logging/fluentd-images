@@ -1,8 +1,8 @@
 # https://github.com/SumoLogic/sumologic-kubernetes-fluentd/blob/main/alpine.Dockerfile
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
-FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:835c033c582cd562ec786951cd84c6c4f081285231842286500fda273c8d8a73 AS sumo
+FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:b44e3526ae59b558576de5695aa5d6b1bdd4e0a080372f0f25d77a4d2092a476 AS sumo
 
-FROM ruby:3.3.0-alpine3.19 as base
+FROM ruby:3.3.0-alpine3.18 as base
 
 ARG BUILD_DEPS=" \
       make gcc g++ libc-dev \
@@ -28,6 +28,8 @@ RUN apk add --no-cache \
         tini libmaxminddb geoip \
         snappy \
  && apk add --no-cache $BUILD_DEPS \
+ && apk add --no-cache "libssl3>=3.1.4-r1" \
+ && apk add --no-cache "libcrypto3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
 
  # BASEIMAGEDEPS
@@ -37,7 +39,7 @@ RUN apk add --no-cache \
          oj:3.15.0 \
          google-protobuf:3.21.12 \
          nio4r:2.6.0 \
-         snappy:0.4.0 \
+         snappy:0.3.0 \
  # The only required fluentd dependency is the label router
  # kubeclient install is upgrading the one from the base image
  && fluent-gem install specific_install -v 0.3.8 \
