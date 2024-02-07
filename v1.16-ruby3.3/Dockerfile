@@ -1,6 +1,6 @@
 # https://github.com/SumoLogic/sumologic-kubernetes-fluentd/blob/main/alpine.Dockerfile
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
-FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:b44e3526ae59b558576de5695aa5d6b1bdd4e0a080372f0f25d77a4d2092a476 AS sumo
+FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:8eb8fcb6017a2d6e8b8767bcc070afea496aa72fde00e257f14a622cf20d868a AS sumo
 
 FROM ruby:3.3.0-alpine3.18 as base
 
