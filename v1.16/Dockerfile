@@ -1,7 +1,7 @@
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
 FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:683d1d89027abfc453653e25ca3828a8c73e660a06fcea74fe37833a5c321dee AS sumo
 
-FROM ruby:3.3.1-alpine3.18 as base
+FROM ruby:3.2.4-alpine3.18 as base
 
 ARG BUILD_DEPS=" \
       make gcc g++ libc-dev \
