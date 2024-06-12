@@ -1,5 +1,5 @@
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
-FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:683d1d89027abfc453653e25ca3828a8c73e660a06fcea74fe37833a5c321dee AS sumo
+FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:b44e3526ae59b558576de5695aa5d6b1bdd4e0a080372f0f25d77a4d2092a476 AS sumo
 
 FROM ruby:3.2.4-alpine3.18 as base
 
