@@ -1,5 +1,6 @@
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
-FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:b44e3526ae59b558576de5695aa5d6b1bdd4e0a080372f0f25d77a4d2092a476 AS sumo
+# https://gallery.ecr.aws/sumologic/kubernetes-fluentd
+FROM public.ecr.aws/sumologic/kubernetes-fluentd:1.16.5-sumo-0-alpine as sumo
 
 FROM ruby:3.2.4-alpine3.18 as base
 
@@ -34,15 +35,15 @@ RUN apk add --no-cache \
  # need to rebuild these gems to have the extensions installed
  && fluent-gem install \
          bigdecimal:1.4.4 \
-         oj:3.15.0 \
+         oj:3.16.1 \
          google-protobuf:3.21.12 \
-         nio4r:2.6.0 \
+         nio4r:2.7.3 \
          snappy:0.3.0 \
  # The only required fluentd dependency is the label router
  # kubeclient install is upgrading the one from the base image
  && fluent-gem install specific_install -v 0.3.8 \
  && fluent-gem specific_install -l https://github.com/ManageIQ/kubeclient.git --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
- && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 2ff43789f895735b7852e0a1a809280e22d9e8ef \
+ && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 6d9d34a7e3fd73a400a31fb35513781802e7b36d \
  && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete

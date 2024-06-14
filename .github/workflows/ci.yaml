@@ -12,7 +12,7 @@ jobs:
       matrix:
         fluentd:
           - v1.16
-          - v1.16-ruby3.3
+          - v1.16-4.8
         image-type:
           - base
           - filters
