@@ -1,5 +1,6 @@
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
-FROM public.ecr.aws/sumologic/kubernetes-fluentd:latest-alpine@sha256:b44e3526ae59b558576de5695aa5d6b1bdd4e0a080372f0f25d77a4d2092a476 AS sumo
+# https://gallery.ecr.aws/sumologic/kubernetes-fluentd
+FROM public.ecr.aws/sumologic/kubernetes-fluentd:1.16.5-sumo-0-alpine as sumo
 
 FROM ruby:3.2.4-alpine3.18 as base
 
@@ -30,14 +31,13 @@ RUN apk add --no-cache \
  && apk add --no-cache "libssl3>=3.1.4-r1" \
  && apk add --no-cache "libcrypto3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
-
  # BASEIMAGEDEPS
  # need to rebuild these gems to have the extensions installed
  && fluent-gem install \
          bigdecimal:1.4.4 \
-         oj:3.15.0 \
+         oj:3.16.1 \
          google-protobuf:3.21.12 \
-         nio4r:2.6.0 \
+         nio4r:2.7.3 \
          snappy:0.3.0 \
  # The only required fluentd dependency is the label router
  # kubeclient install is upgrading the one from the base image

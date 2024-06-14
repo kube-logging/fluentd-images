@@ -30,7 +30,6 @@ RUN apk add --no-cache \
  && apk add --no-cache "libssl3>=3.1.4-r1" \
  && apk add --no-cache "libcrypto3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
-
  # BASEIMAGEDEPS
  # need to rebuild these gems to have the extensions installed
  && fluent-gem install \
