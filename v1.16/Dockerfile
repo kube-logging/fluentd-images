@@ -8,7 +8,7 @@ ARG BUILD_DEPS=" \
       wget bzip2 zlib-dev git linux-headers \
       automake autoconf libtool build-base \
       ruby-dev libc6-compat geoip-dev \
-      snappy-dev gnupg \
+      snappy-dev gnupg bash \
       "
 
 RUN addgroup -S -g 101 fluent && adduser -S -G fluent -u 100 fluent \
