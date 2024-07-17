@@ -13,6 +13,7 @@ jobs:
         fluentd:
           - v1.16
           - v1.16-4.8
+          - v1.16-4.9
         image-type:
           - base
           - filters
