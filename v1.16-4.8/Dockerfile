@@ -2,7 +2,7 @@
 # https://gallery.ecr.aws/sumologic/kubernetes-fluentd
 FROM public.ecr.aws/sumologic/kubernetes-fluentd:1.16.5-sumo-0-alpine as sumo
 
-FROM ruby:3.3.1-alpine3.18 as base
+FROM ruby:3.2.4-alpine3.18 as base
 
 ARG BUILD_DEPS=" \
       make gcc g++ libc-dev \
