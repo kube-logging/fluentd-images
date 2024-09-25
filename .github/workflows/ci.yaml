@@ -11,9 +11,9 @@ jobs:
       fail-fast: false
       matrix:
         fluentd:
-          - v1.16
           - v1.16-4.8
           - v1.16-4.9
+          - v1.16-4.10
         image-type:
           - base
           - filters
