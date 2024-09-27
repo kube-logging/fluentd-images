@@ -74,7 +74,7 @@ GEM
     tzinfo-data (1.2023.4)
       tzinfo (>= 1.0.0)
     user_agent_parser (2.16.0)
-    webrick (1.8.1)
+    webrick (1.8.2)
     yajl-ruby (1.4.3)
 
 PLATFORMS
