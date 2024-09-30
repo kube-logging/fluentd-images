@@ -36,9 +36,10 @@ RUN apk add --no-cache \
  && fluent-gem install \
          bigdecimal:1.4.4 \
          oj:3.16.1 \
-         google-protobuf:3.21.12 \
+         google-protobuf:3.25.5 \
          nio4r:2.7.3 \
          snappy:0.3.0 \
+         webrick:1.8.2 \
  # The only required fluentd dependency is the label router
  # kubeclient install is upgrading the one from the base image
  && fluent-gem install specific_install -v 0.3.8 \
