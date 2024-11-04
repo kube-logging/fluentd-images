@@ -1,8 +1,41 @@
-# TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
-# https://gallery.ecr.aws/sumologic/kubernetes-fluentd
-FROM public.ecr.aws/sumologic/kubernetes-fluentd:1.16.5-sumo-0-alpine as sumo
+FROM ruby:3.2.6-alpine3.20 as builder
 
-FROM ruby:3.2.5-alpine3.20 as base
+RUN apk update \
+ && apk add --no-cache \
+        ca-certificates \
+        snappy-dev \
+        tini \
+        build-base linux-headers \
+        ruby-dev gnupg
+
+
+RUN delgroup ping \
+    && addgroup -S -g 999 fluent \
+    && adduser -S -g fluent -u 999 fluent \
+    # for log storage (maybe shared with host)
+    && mkdir -p /fluentd/log \
+    # configuration/plugins path (default: copied from .)
+    && mkdir -p /fluentd/etc /fluentd/plugins \
+    && chown -R fluent /fluentd && chgrp -R fluent /fluentd \
+    && gem install fluentd -v 1.17.1
+
+COPY fluent.conf /fluentd/etc/
+COPY entrypoint.sh /bin/
+
+ENV FLUENTD_CONF="fluent.conf"
+
+ENV LD_PRELOAD=""
+EXPOSE 24224 5140
+
+USER 999:999
+
+ARG BUILD_TAG=latest
+ENV TAG $BUILD_TAG
+
+ENTRYPOINT ["tini",  "--", "/bin/entrypoint.sh"]
+CMD ["fluentd"]
+
+FROM ruby:3.2.6-alpine3.20 as base
 
 ARG BUILD_DEPS=" \
       make gcc g++ libc-dev \
@@ -20,7 +53,7 @@ RUN addgroup -S -g 101 fluent && adduser -S -G fluent -u 100 fluent \
     && chown -R fluent /fluentd && chgrp -R fluent /fluentd \
     && mkdir -p /buffers && chown -R fluent /buffers
 
-COPY --from=sumo --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
+COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
 
 RUN apk add --no-cache \
         ca-certificates \
