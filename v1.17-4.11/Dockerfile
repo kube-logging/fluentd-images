@@ -26,8 +26,7 @@ RUN addgroup -S -g 101 fluent && adduser -S -G fluent -u 100 fluent \
  && echo 'gem: --no-document' >> /etc/gemrc \
  && gem install fluentd -v 1.17.1 \
  && fluent-gem install specific_install -v 0.3.8 \
- && fluent-gem specific_install -l https://github.com/ManageIQ/kubeclient.git --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
- && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 6d9d34a7e3fd73a400a31fb35513781802e7b36d \
+ && fluent-gem install fluent-plugin-label-router -v 0.3.2 \
  && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
  && apk del $BUILD_DEPS \
  && rm -rf /usr/local/bundle/cache/* && find /usr/local/bundle -name '*.o' -delete
