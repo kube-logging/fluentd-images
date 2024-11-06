@@ -73,8 +73,6 @@ USER root
 
 RUN apk add --no-cache $BUILD_DEPS \
  && touch /etc/gemrc \
- # TODO get rid of this by submitting the patch upstream
- && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-gcs.git --ref ad6a7cb0f166e2c1648954a928e1e9b8cdcbf93d \
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-syslog_rfc5424.git --ref 4ab9f7df3757b0e31e4bc209acab05a518efdce3 \
  && fluent-gem install --file /Gemfile.outputs \
  && find /usr/local/bundle/gems/ -newer /etc/gemrc -exec chown fluent:fluent {} \; \
