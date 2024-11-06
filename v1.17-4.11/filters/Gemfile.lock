@@ -1,9 +1,12 @@
 GEM
-  remote: https://rubygems.org/
+  remote: https://index.rubygems.org/
   specs:
+    base64 (0.2.0)
     concurrent-ruby (1.2.3)
     cool.io (1.8.0)
+    csv (3.3.0)
     dig_rb (1.0.1)
+    drb (2.2.1)
     fluent-config-regexp-type (1.0.0)
       fluentd (> 1.0.0, < 2)
     fluent-plugin-concat (2.5.0)
@@ -46,9 +49,13 @@ GEM
       lru_redux (>= 1.0.0)
       user_agent_parser (>= 2.2.0)
     fluentd (1.17.1)
+      base64 (~> 0.2)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
+      csv (~> 3.2)
+      drb (~> 2.2)
       http_parser.rb (>= 0.5.1, < 0.9.0)
+      logger (~> 1.6)
       msgpack (>= 1.3.1, < 2.0.0)
       serverengine (>= 2.3.2, < 3.0.0)
       sigdump (~> 0.2.5)
@@ -61,6 +68,7 @@ GEM
     geoip2_c (0.3.4)
     http_parser.rb (0.8.0)
     logfmt (0.0.10)
+    logger (1.6.1)
     lru_redux (1.1.0)
     msgpack (1.7.2)
     myslog (0.1.1)
@@ -96,6 +104,3 @@ DEPENDENCIES
   fluent-plugin-tag-normaliser (= 0.1.3)
   fluent-plugin-throttle (= 0.0.5)
   fluent-plugin-ua-parser (= 1.2.0)
-
-BUNDLED WITH
-   2.4.22

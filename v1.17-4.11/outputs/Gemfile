@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://index.rubygems.org'
 
 gem 'fluent-plugin-aliyun-oss', '0.0.1'
 gem 'fluent-plugin-sumologic_output', '1.10.0'
