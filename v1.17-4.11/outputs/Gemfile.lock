@@ -162,7 +162,7 @@ GEM
     fluent-plugin-webhdfs (1.6.0)
       fluentd (>= 0.14.22)
       webhdfs (>= 0.11.0)
-    fluentd (1.16.3)
+    fluentd (1.17.1)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.9.0)

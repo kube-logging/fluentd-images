@@ -9,16 +9,13 @@ ARG BUILD_DEPS=" \
       "
 
 RUN addgroup -S -g 101 fluent && adduser -S -G fluent -u 100 fluent \
-    # for log storage (maybe shared with host)
-    && mkdir -p /fluentd/log \
-    # configuration/plugins path (default: copied from .)
-    && mkdir -p /fluentd/etc /fluentd/plugins \
-    && chown -R fluent /fluentd && chgrp -R fluent /fluentd \
-    && mkdir -p /buffers && chown -R fluent /buffers
-
-COPY --from=builder --chown=fluent:fluent /usr/local/bundle /usr/local/bundle
-
-RUN apk add --no-cache \
+ # for log storage (maybe shared with host)
+ && mkdir -p /fluentd/log \
+ # configuration/plugins path (default: copied from .)
+ && mkdir -p /fluentd/etc /fluentd/plugins \
+ && chown -R fluent /fluentd && chgrp -R fluent /fluentd \
+ && mkdir -p /buffers && chown -R fluent /buffers \
+ && apk add --no-cache \
         ca-certificates \
         ruby ruby-irb ruby-etc \
         tini libmaxminddb geoip \
@@ -27,17 +24,7 @@ RUN apk add --no-cache \
  && apk add --no-cache "libssl3>=3.1.4-r1" \
  && apk add --no-cache "libcrypto3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
- # BASEIMAGEDEPS
- # need to rebuild these gems to have the extensions installed
- && fluent-gem install \
-         bigdecimal:1.4.4 \
-         oj:3.16.1 \
-         google-protobuf:3.25.5 \
-         nio4r:2.7.3 \
-         snappy:0.3.0 \
-         webrick:1.8.2 \
- # The only required fluentd dependency is the label router
- # kubeclient install is upgrading the one from the base image
+ && gem install fluentd -v 1.17.1 \
  && fluent-gem install specific_install -v 0.3.8 \
  && fluent-gem specific_install -l https://github.com/ManageIQ/kubeclient.git --ref 054bff2c5e31a555004be2b3c4d32fb9dc5e6a0f \
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-label-router.git --ref 6d9d34a7e3fd73a400a31fb35513781802e7b36d \
