@@ -11,10 +11,11 @@ jobs:
       fail-fast: false
       matrix:
         fluentd:
-          - v1.16-4.8
-          - v1.16-4.9
-          - v1.16-4.10
-          - v1.17-5.0
+          - version: v1.16-4.8
+          - version: v1.16-4.9
+          - version: v1.16-4.10
+            alias:   v1.16-4.11
+          - version: v1.17-5.0
         image-type:
           - base
           - filters
@@ -33,14 +34,16 @@ jobs:
           flavor: |
             latest = false
           tags: |
-            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}-build.${{ github.run_number }}
-            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}
+            type=raw,value=${{ matrix.fluentd.version }}-${{ matrix.image-type }}
+            type=raw,value=${{ matrix.fluentd.version }}-${{ matrix.image-type }}-build.${{ github.run_number }}
+            type=raw,value=${{ !!matrix.fluentd.alias && matrix.fluentd.alias || 'alias' }}-${{ matrix.image-type }},enable=${{ !!matrix.fluentd.alias }}
+            type=raw,value=${{ !!matrix.fluentd.alias && matrix.fluentd.alias || 'alias' }}-${{ matrix.image-type }}-build.${{ github.run_number }},enable=${{ !!matrix.fluentd.alias }}
           labels: |
             org.opencontainers.image.description=Custom-built Fluentd image for the Logging operator
             org.opencontainers.image.title=Fluentd docker image
             org.opencontainers.image.authors=kube-logging authors
             org.opencontainers.image.documentation=https://kube-logging.dev/docs/
-            org.opencontainers.image.version=${{ matrix.fluentd }}-${{ matrix.image-type }}
+            org.opencontainers.image.version=${{ matrix.fluentd.version }}-${{ matrix.image-type }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -56,7 +59,7 @@ jobs:
       - name: Build image (${{ matrix.image-type }})
         uses: docker/build-push-action@v5
         with:
-          context: ${{ matrix.fluentd }}
+          context: ${{ matrix.fluentd.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false

@@ -18,10 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         fluentd:
-          - v1.16-4.8
-          - v1.16-4.9
-          - v1.16-4.10
-          - v1.17-5.0
+          - version: v1.16-4.8
+          - version: v1.16-4.9
+          - version: v1.16-4.10
+            alias:   v1.16-4.11
+          - version: v1.17-5.0
         image-type:
           - base
           - filters
@@ -40,9 +41,10 @@ jobs:
           flavor: |
             latest = false
           tags: |
-            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}
-            type=raw,value=${{ matrix.fluentd }}-${{ matrix.image-type }}-build.${{ github.run_number }}
-
+            type=raw,value=${{ matrix.fluentd.version }}-${{ matrix.image-type }}
+            type=raw,value=${{ matrix.fluentd.version }}-${{ matrix.image-type }}-build.${{ github.run_number }}
+            type=raw,value=${{ !!matrix.fluentd.alias && matrix.fluentd.alias || 'alias' }}-${{ matrix.image-type }},enable=${{ !!matrix.fluentd.alias }}
+            type=raw,value=${{ !!matrix.fluentd.alias && matrix.fluentd.alias || 'alias' }}-${{ matrix.image-type }}-build.${{ github.run_number }},enable=${{ !!matrix.fluentd.alias }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -63,7 +65,7 @@ jobs:
       - name: Build and push (${{ matrix.image-type }})
         uses: docker/build-push-action@v5
         with:
-          context: ${{ matrix.fluentd }}
+          context: ${{ matrix.fluentd.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
