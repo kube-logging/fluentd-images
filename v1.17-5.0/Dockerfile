@@ -19,10 +19,8 @@ RUN addgroup -S -g 101 fluent && adduser -S -G fluent -u 100 fluent \
         ca-certificates \
         ruby ruby-irb ruby-etc \
         tini libmaxminddb geoip \
-        snappy \
+        snappy libssl3 libcrypto3 \
  && apk add --no-cache $BUILD_DEPS \
- && apk add --no-cache "libssl3>=3.1.4-r1" \
- && apk add --no-cache "libcrypto3>=3.1.4-r1" \
  && echo 'gem: --no-document' >> /etc/gemrc \
  && gem install fluentd -v 1.17.1 \
  && fluent-gem install specific_install -v 0.3.8 \
