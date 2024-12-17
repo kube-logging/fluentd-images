@@ -18,6 +18,11 @@
         {
             "matchUpdateTypes": ["major"],
             "enabled": false
+        },
+        {
+            "matchPackageNames": ["ruby"],
+            "matchUpdateTypes": ["major", "minor"],
+            "enabled": false
         }
     ]
 }
