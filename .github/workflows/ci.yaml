@@ -11,8 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         fluentd:
-          - version: v1.16-4.8
-          - version: v1.16-4.9
           - version: v1.16-4.10
             alias:   v1.16-4.11
           - version: v1.17-5.0
