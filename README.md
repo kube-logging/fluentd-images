@@ -8,14 +8,14 @@ Pick Fluentd version (either full semver or a shortened major-minor version).
 Pick an image type (`filters` contains filter plugins only, `full` has output plugins as well).
 Image tags are constructed according to the following pattern:
 
-```
+```sh
 ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE
 ```
 
 To ensure that subsequent builds don't break your production environment,
 you may want to pin your image to a specific build:
 
-```
+```sh
 ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE-build.BUILD_NUMBER
 ```
 
@@ -23,14 +23,22 @@ While the tag in the first example is a moving tag (subsequent builds of the sam
 build number annotated tags are immutable.
 
 ### Add new plugins
+
 If you wish to add a new plugin, use this image as a base image in your `Dockerfile`:
-```
+
+```dockerfile
 FROM ghcr.io/kube-logging/fluentd:VERSION-IMAGE-TYPE-build.BUILD_NUMBER
 ```
+
 Then add your plugin:
-```
+
+```dockerfile
 RUN fluent-gem install PLUGIN_NAME -v PLUGIN_VERSION
 ```
+
+## Version Support Policy
+
+According to the Logging Operators release-cycle (6 weeks) we maintain the corresponding fluentd image version, which we support for the last 3 releases.
 
 ## Maintenance
 
