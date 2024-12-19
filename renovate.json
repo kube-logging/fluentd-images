@@ -16,11 +16,7 @@
     },
     "packageRules": [
         {
-            "matchUpdateTypes": ["major"],
-            "enabled": false
-        },
-        {
-            "matchPackageNames": ["ruby"],
+            "matchFileNames":  ["v1.16-4.10/*", "v1.17-5.0/*"],
             "matchUpdateTypes": ["major", "minor"],
             "enabled": false
         }
