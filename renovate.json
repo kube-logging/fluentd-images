@@ -6,19 +6,16 @@
         "group:all",
         "config:recommended"
     ],
-    "ignorePaths": [
-    ],
     "additionalBranchPrefix": "{{baseDir}}-",
     "commitMessagePrefix": "{{baseDir}}",
-    "automerge": true,
-    "major": {
-        "automerge": false
-    },
     "packageRules": [
         {
-            "matchFileNames":  ["v1.16-4.10/*", "v1.17-5.0/*"],
-            "matchUpdateTypes": ["major", "minor"],
-            "enabled": false
+            "enabled": false,
+            "matchFileNames": ["v1.16-4.10/*", "v1.17-5.0/*"]
         }
-    ]
+    ],
+    "vulnerabilityAlerts": {
+        "enabled": true
+    },
+    "osvVulnerabilityAlerts": true
 }
