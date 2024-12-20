@@ -61,7 +61,7 @@ jobs:
         if: github.event_name == 'push'
 
       - name: Build and push (${{ matrix.image-type }})
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.fluentd.version }}
           platforms: linux/amd64,linux/arm64
@@ -85,7 +85,7 @@ jobs:
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: "trivy-results.sarif"
         if: github.event_name == 'push'

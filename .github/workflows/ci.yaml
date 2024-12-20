@@ -55,7 +55,7 @@ jobs:
         if: github.event_name == 'push'
 
       - name: Build image (${{ matrix.image-type }})
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.fluentd.version }}
           cache-from: type=gha
