@@ -10,6 +10,7 @@ ARG BUILD_DEPS=" \
       automake autoconf libtool build-base \
       ruby-dev libc6-compat geoip-dev \
       snappy-dev gnupg bash openssl-dev \
+      ruby-bigdecimal \
       "
 
 RUN addgroup -S -g 101 fluent && adduser -S -G fluent -u 100 fluent \
