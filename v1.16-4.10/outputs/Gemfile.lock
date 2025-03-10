@@ -75,7 +75,7 @@ GEM
     faraday_middleware-aws-sigv4 (1.0.1)
       aws-sigv4 (~> 1.0)
       faraday (>= 2.0, < 3)
-    ffi (1.16.3)
+    ffi (1.17.1)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -247,15 +247,15 @@ GEM
     prometheus-client (4.2.1)
     public_suffix (5.0.3)
     racc (1.8.1)
-    rack (3.0.9.1)
+    rack (3.0.13)
     rack-oauth2 (1.21.3)
       activesupport
       attr_required
       httpclient
       json-jwt (>= 1.11.0)
       rack (>= 2.1.0)
-    rake (13.0.6)
-    rdkafka (0.19.0)
+    rake (13.2.1)
+    rdkafka (0.21.0)
       ffi (~> 1.15)
       mini_portile2 (~> 2.6)
       rake (> 12)
@@ -326,7 +326,7 @@ DEPENDENCIES
   fluent-plugin-vmware-log-intelligence (= 2.0.8)
   fluent-plugin-vmware-loginsight (= 1.4.2)
   fluent-plugin-webhdfs (= 1.6.0)
-  rdkafka (= 0.19.0)
+  rdkafka (= 0.21.0)
 
 BUNDLED WITH
    2.6.0
