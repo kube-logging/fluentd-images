@@ -59,10 +59,10 @@ GEM
     elastic-transport (8.4.0)
       faraday (< 3)
       multi_json
-    elasticsearch (9.0.2)
-      elastic-transport (~> 8.3)
-      elasticsearch-api (= 9.0.2)
-    elasticsearch-api (9.0.2)
+    elasticsearch (8.18.0)
+      elastic-transport (~> 8.4)
+      elasticsearch-api (= 8.18.0)
+    elasticsearch-api (8.18.0)
       multi_json
     excon (1.2.5)
       logger
