@@ -1,8 +1,8 @@
 # TODO every time the base image is changed please make sure BASEIMAGEDEPS is updated (further down in this file)
 # https://gallery.ecr.aws/sumologic/kubernetes-fluentd
-FROM public.ecr.aws/sumologic/kubernetes-fluentd:1.16.5-sumo-0-alpine as sumo
+FROM public.ecr.aws/sumologic/kubernetes-fluentd:1.16.5-sumo-0-alpine AS sumo
 
-FROM ruby:3.2.5-alpine3.20 as base
+FROM ruby:3.2.5-alpine3.20 AS base
 
 ARG BUILD_DEPS=" \
       make gcc g++ libc-dev \
@@ -83,7 +83,7 @@ RUN apk add --no-cache $BUILD_DEPS \
 USER fluent
 
 ### Image with all the filters and outputs
-FROM filters as full
+FROM filters AS full
 
 ADD ./outputs/Gemfile /Gemfile.outputs
 ADD ./outputs/Gemfile.lock /Gemfile.outputs.lock

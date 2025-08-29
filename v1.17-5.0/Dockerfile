@@ -1,4 +1,4 @@
-FROM ruby:3.3.6-alpine3.20 as base
+FROM ruby:3.3.6-alpine3.20 AS base
 
 ARG BUILD_DEPS=" \
       make gcc g++ libc-dev \
@@ -63,7 +63,7 @@ RUN apk add --no-cache $BUILD_DEPS \
 USER fluent
 
 ### Image with all the filters and outputs
-FROM filters as full
+FROM filters AS full
 
 ADD ./outputs/Gemfile /Gemfile.outputs
 ADD ./outputs/Gemfile.lock /Gemfile.outputs.lock
@@ -71,6 +71,7 @@ ADD ./outputs/Gemfile.lock /Gemfile.outputs.lock
 USER root
 
 RUN apk add --no-cache $BUILD_DEPS \
+ && apk del fortify-headers \
  && touch /etc/gemrc \
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-syslog_rfc5424.git --ref 4ab9f7df3757b0e31e4bc209acab05a518efdce3 \
  && fluent-gem install --file /Gemfile.outputs \
