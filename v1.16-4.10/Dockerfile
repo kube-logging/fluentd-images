@@ -31,6 +31,7 @@ RUN apk add --no-cache \
  && apk add --no-cache $BUILD_DEPS \
  && apk add --no-cache "libssl3>=3.1.4-r1" \
  && apk add --no-cache "libcrypto3>=3.1.4-r1" \
+ && rm -rf /usr/include/fortify \
  && echo 'gem: --no-document' >> /etc/gemrc \
  # BASEIMAGEDEPS
  # need to rebuild these gems to have the extensions installed
@@ -91,6 +92,7 @@ ADD ./outputs/Gemfile.lock /Gemfile.outputs.lock
 USER root
 
 RUN apk add --no-cache $BUILD_DEPS \
+ && rm -rf /usr/include/fortify \
  && touch /etc/gemrc \
  # TODO get rid of this by submitting the patch upstream
  && fluent-gem specific_install -l https://github.com/kube-logging/fluent-plugin-gcs.git --ref ad6a7cb0f166e2c1648954a928e1e9b8cdcbf93d \
